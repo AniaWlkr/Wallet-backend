@@ -1,0 +1,67 @@
+{
+  "name": "wallet-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node ./bin/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./bin/server.js",
+    "lint": "eslint **/*.{js,json}",
+    "lint:fix": "eslint --fix **/*.{js,json}",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AniaWlkr/Wallet-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AniaWlkr/Wallet-backend/issues"
+  },
+  "homepage": "https://github.com/AniaWlkr/Wallet-backend#readme",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.6",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "helmet": "^4.6.0",
+    "jimp": "^0.16.1",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mailgen": "^2.0.15",
+    "mongoose": "^5.13.7",
+    "mongoose-paginate-v2": "^1.4.2",
+    "nanoid": "^3.1.25",
+    "normalize-port": "^1.0.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,json}": [
+      "npm run lint:fix"
+    ]
+  }
+}
