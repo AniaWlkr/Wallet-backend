@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AniaWlkr/Wallet-backend.git"
+    "url": "git+https://github.com/AniaWlkr/wallet-backend.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AniaWlkr/Wallet-backend/issues"
+    "url": "https://github.com/AniaWlkr/wallet-backend/issues"
   },
-  "homepage": "https://github.com/AniaWlkr/Wallet-backend#readme",
+  "homepage": "https://github.com/AniaWlkr/wallet-backend#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.4.6",
     "bcryptjs": "^2.4.3",
