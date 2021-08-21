@@ -32,6 +32,12 @@ const transactionSchema = new Schema({
     ref: 'categories',
     default: 'разное',
   },
+   owner: {
+      type: SchemaTypes.ObjectId,
+      ref: 'user',
+    },
+  },
+  { versionKey: false, timestamps: true },
 });
 
 transactionSchema.plugin(mongoosePaginate);
