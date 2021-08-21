@@ -4,9 +4,11 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: ["standard", "plugin: json/recommended", "prettier"],
+  extends: ['standard', 'plugin:json/recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 12,
   },
-  rules: {},
-}
+  rules: {
+    'space-before-function-paren': 'off',
+  },
+};
