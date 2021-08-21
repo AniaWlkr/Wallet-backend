@@ -1,4 +1,4 @@
-const { HttpCode } = require('./constants');
+const HttpCode = require('./constants');
 const internalServerError = (err, req, res, next) => {
   err.status = err.status ? err.status : HttpCode.INTERNAL_SERVER_ERROR;
   res.status(err.status).json({
