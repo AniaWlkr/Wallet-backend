@@ -1,5 +1,6 @@
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const PORT = process.env.PORT;
 
 const definition = {
   openapi: '3.0.0',
@@ -19,11 +20,11 @@ const definition = {
   },
   servers: [
     {
-      url: 'https://aw-team-project.herokuapp.com',
+      url: 'https://db-wallet.herokuapp.com',
       description: 'API base URL',
     },
     {
-      url: 'http://localhost:4444',
+      url: `http://localhost:${PORT}`,
       description: 'Development API',
     },
   ],
