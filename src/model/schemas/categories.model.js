@@ -5,6 +5,7 @@ const categorySchema = new Schema({
     type: String,
     required: [true, 'Укажите название категории'],
   },
+  { versionKey: false, timestamps: true },
 });
 
 const Category = model('category', categorySchema);
