@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createAccountLimit } = require('../../src/config/rate-limit.json');
+const { createAccountLimit } = require('../../src/config/rateLimit.json');
 
 const { usersControllers } = require('../../src/controllers');
 const limiter = require('../../src/middleware/limiter');
