@@ -537,7 +537,15 @@ router
  *   get:
  *     tags: [Users]
  *     summary: Current users
- *     description: Retrieving data of the current user
+ *     description:  Retrieving data of the current user
+ *
+ *     parameters:
+ *       - in: header
+ *         required: true
+ *         description: Access Token (Current)
+ *         name: Authorization
+ *         schema:
+ *           type: string
  *
  *     responses:
  *       200:
