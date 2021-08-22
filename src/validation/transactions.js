@@ -2,10 +2,10 @@ const Joi = require('joi');
 
 const transactionSchema = Joi.object({
   transType: Joi.string().allow('income', 'spend').only().required(),
-  date: Joi.date().reqired(),
-  month: Joi.number().reqired(),
-  year: Joi.number().reqired(),
-  sum: Joi.number().reqired(),
+  date: Joi.date().required(),
+  month: Joi.number().required(),
+  year: Joi.number().required(),
+  sum: Joi.number().required(),
   comment: Joi.string().max(250),
 });
 
