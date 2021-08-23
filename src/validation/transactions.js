@@ -1,12 +1,28 @@
 const Joi = require('joi');
 
-const transactionSchema = Joi.object({
+const schemaCreateTransaction = Joi.object({
   transType: Joi.string().allow('income', 'spend').only().required(),
   date: Joi.date().required(),
-  month: Joi.number().required(),
-  year: Joi.number().required(),
-  sum: Joi.number().required(),
-  comment: Joi.string().max(250),
+  sum: Joi.number().min(0.01).integer().required(),
+  comment: Joi.string().max(250).optional(),
+  category: Joi.string().required(),
+  owner: Joi.string().optional(),
 });
 
-module.exports = transactionSchema;
+const validate = async (schema, obj, next) => {
+  try {
+    await schema.validateAsync(obj);
+    next();
+  } catch (error) {
+    next({
+      status: 400,
+      message: `Field: ${error.message.replace(/"/g, '')}`,
+    });
+  }
+};
+
+const validateCreateTransaction = (req, res, next) => {
+  validate(schemaCreateTransaction, req.body, next);
+};
+
+module.exports = { validateCreateTransaction };

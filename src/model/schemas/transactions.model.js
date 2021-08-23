@@ -16,9 +16,11 @@ const transactionSchema = new Schema(
     },
     month: {
       type: Number,
+      required: true,
     },
     year: {
       type: Number,
+      required: true,
     },
     sum: {
       type: Number,
@@ -32,10 +34,12 @@ const transactionSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'categories',
       default: 'разное',
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+      required: true,
     },
   },
   { versionKey: false, timestamps: true },
