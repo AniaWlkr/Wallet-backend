@@ -118,7 +118,7 @@ const guard = require('../../src/middleware/guard');
  *                                  type: integer
  *                                  description: Month of transaction
  *                                  example: 8
- **                                year:
+ *                                year:
  *                                  type: integer
  *                                  description: Year of transaction
  *                                  example: 2021
