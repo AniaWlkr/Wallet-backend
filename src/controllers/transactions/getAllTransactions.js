@@ -4,7 +4,7 @@ const HttpCode = require('../../helpers/constants');
 const getAllTransactions = async (req, res, next) => {
   try {
     const ownerId = req.user.id;
-    const result = await TransactionService.getAllTrans(ownerId);
+    const result = await TransactionService.getAllTrans(ownerId, req.query);
     res.json({
       status: 'success',
       code: HttpCode.OK,

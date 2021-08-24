@@ -3,10 +3,11 @@ const Joi = require('joi');
 const schemaCreateTransaction = Joi.object({
   transType: Joi.string().allow('income', 'spend').only().required(),
   date: Joi.date().required(),
-  sum: Joi.number().min(0.01).integer().required(),
+  sum: Joi.number().min(0.01).required(),
+  balance: Joi.number().required(),
   comment: Joi.string().max(250).optional(),
-  category: Joi.string().required(),
-  owner: Joi.string().optional(),
+  categoryId: Joi.string(),
+  owner: Joi.string(),
 });
 
 const validate = async (schema, obj, next) => {
