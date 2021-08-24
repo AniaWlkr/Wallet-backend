@@ -12,7 +12,7 @@ const { categoriesControllers } = require('../../src/controllers');
  *   get:
  *     tags: [Categories]
  *     summary: Returns list of categories
- *     description:  Retrieving list of categories' name
+ *     description:  Retrieving list of categories' names
  *
  *     parameters: []
  *
