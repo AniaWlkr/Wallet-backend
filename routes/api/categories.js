@@ -8,7 +8,7 @@ const { categoriesControllers } = require('../../src/controllers');
  *   name: Categories
  *   description: End-point for categories.
  *
- * /api/transactions:
+ * /api/categories:
  *   get:
  *     tags: [Categories]
  *     summary: Returns list of categories
