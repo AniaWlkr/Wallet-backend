@@ -20,9 +20,7 @@ const createTransaction = async (req, res, next) => {
     res.status(HttpCode.CREATED).json({
       status: 'success',
       code: HttpCode.CREATED,
-      data: {
-        result,
-      },
+      data: result,
     });
   } catch (error) {
     next(error);
