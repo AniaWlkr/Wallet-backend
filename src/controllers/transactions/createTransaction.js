@@ -7,6 +7,7 @@ const createTransaction = async (req, res, next) => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const ownerId = req.user.id;
+  const { categoryId } = req.body;
 
   try {
     const result = await TransactionService.addTrans({

@@ -26,14 +26,17 @@ const transactionSchema = new Schema(
       type: Number,
       required: [true, 'Укажите сумму транзакции'],
     },
+    balance: {
+      type: Number,
+      required: true,
+    },
     comment: {
       type: String,
       maxlength: 250,
     },
-    category: {
+    categoryId: {
       type: Schema.Types.ObjectId,
       ref: 'categories',
-      default: 'разное',
       required: true,
     },
     owner: {
