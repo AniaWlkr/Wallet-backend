@@ -40,30 +40,13 @@ const { categoriesControllers } = require('../../src/controllers');
  *                       categoryName:
  *                         type: string
  *                         description: Category name
- *                         example: Mischellaneous
+ *                         example: Разное
  *                       createdAt:
  *                         type: string
  *                         format: date
  *                         description: Category's creation date
  *                         example: 2021-08-22T11:57:44.980+00:00
  *
- *       401:
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example : error
- *                 code:
- *                   type: number
- *                   example: 401
- *                 message:
- *                   type: string
- *                   description: Service message
- *                   example: Not authorized
  *       500:
  *         description: Internal Server Error
  *         content:
