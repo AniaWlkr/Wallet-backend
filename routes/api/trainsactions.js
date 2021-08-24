@@ -14,7 +14,7 @@ const guard = require('../../src/middleware/guard');
  *
  * /api/transactions?page=1&limit=5&transType=income&month=8&year=2021:
  *   get:
- *     tags: [Transactions]
+ *     tags: [Transaction]
  *     summary: Returns list of transactions
  *     description:  Retrieving list of transactions
  *
