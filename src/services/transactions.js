@@ -6,31 +6,35 @@ const addTrans = (ownerId, body) => {
 
 const getAllTrans = (
   ownerId,
-  { page = 1, limit = 5, sortBy = 'date', transType },
+  {
+    page = 1,
+    limit = 5,
+    sortBy = 'date',
+    transType = null,
+    month = null,
+    year = null,
+  },
 ) => {
-  const query = transType ? { transType: `${transType}` } : null;
+  let query = { owner: ownerId };
+  if (transType) query = { ...query, transType: `${transType}` };
+  if (month) query = { ...query, month: `${month}` };
+  if (year) query = { ...query, year: `${year}` };
 
-  return Transaction.paginate(
-    {
-      owner: ownerId,
-      query,
-    },
-    {
-      page,
-      limit,
-      sort: { [`${sortBy}`]: 1 },
-      populate: [
-        {
-          path: 'categoryId',
-          select: 'categoryName',
-        },
-        {
-          path: 'owner',
-          select: ['name', 'email'],
-        },
-      ],
-    },
-  );
+  return Transaction.paginate(query, {
+    page,
+    limit,
+    sort: { [`${sortBy}`]: 1 },
+    populate: [
+      {
+        path: 'categoryId',
+        select: 'categoryName',
+      },
+      {
+        path: 'owner',
+        select: ['name', 'email'],
+      },
+    ],
+  });
 };
 
 const getTransById = async (ownerId, transId) => {
