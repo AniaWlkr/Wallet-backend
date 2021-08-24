@@ -19,6 +19,12 @@ const guard = require('../../src/middleware/guard');
  *     description:  Retrieving list of transactions
  *
  *     parameters:
+ *        - in: header
+ *         name: Authorization
+ *         required: true
+ *         description: Access Token
+ *         schema:
+ *           type: string
  *          - in: query
  *         name: page
  *         type: integer
