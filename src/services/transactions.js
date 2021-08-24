@@ -1,8 +1,7 @@
 const { Transaction } = require('../model');
 
 const addTrans = (ownerId, body) => {
-  const result = Transaction.create(ownerId, body);
-  return result;
+  return Transaction.create(ownerId, body);
 };
 
 const getAllTrans = (
@@ -34,12 +33,27 @@ const getAllTrans = (
   );
 };
 
-const getTransById = (ownerId, transId) => {
-  const result = Transaction.findOne({
-    _id: transId,
-    owner: ownerId,
-  });
-  return result;
+const getTransById = async (ownerId, transId) => {
+  try {
+    return await Transaction.findOne({
+      _id: transId,
+      owner: ownerId,
+    }).populate([
+      {
+        path: 'categoryId',
+        select: 'categoryName',
+      },
+      {
+        path: 'owner',
+        select: ['name', 'email'],
+      },
+    ]);
+  } catch (error) {
+    if (error.message.includes('Cast to ObjectId failed')) {
+      return null;
+    }
+    throw error;
+  }
 };
 
 const updateTransaction = (ownerId, transId, newData) => {
