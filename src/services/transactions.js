@@ -23,7 +23,7 @@ const getAllTrans = (
   return Transaction.paginate(query, {
     page,
     limit,
-    sort: { [`${sortBy}`]: 1 },
+    sort: { [`${sortBy}`]: -1 },
     populate: [
       {
         path: 'categoryId',
