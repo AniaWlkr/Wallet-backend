@@ -9,7 +9,7 @@ const getAllTransactions = async (req, res, next) => {
     res.json({
       status: 'success',
       code: HttpCode.OK,
-      data: result,
+      result,
     });
   } catch (error) {
     next(error);
