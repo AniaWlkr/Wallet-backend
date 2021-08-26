@@ -28,6 +28,15 @@ const definition = {
       description: 'Development API',
     },
   ],
+  securityDefinitions: {
+    bearerAuth: {
+      type: "http",
+      name: "token",
+      scheme: "bearer",
+      bearerFormat: "JWT",
+      in: "header"
+    },
+  }
 };
 
 const options = {
@@ -35,18 +44,6 @@ const options = {
   explorer: true,
   swaggerOptions: {
     url: 'http://petstore.swagger.io/v2/swagger.json',
-  },
-  components: {
-    securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        name: "Token",
-        scheme: "bearer",
-        in: "header",
-        bearerFormat: "JWT",
-        required: "true"
-      },
-    }
   },
   apis: ['./routes/api/*.js'],
 };
