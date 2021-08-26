@@ -40,9 +40,11 @@ const options = {
     securitySchemes: {
       bearerAuth: {
         type: "http",
+        name: "Token",
         scheme: "bearer",
         in: "header",
-        bearerFormat: "JWT"
+        bearerFormat: "JWT",
+        required: "true"
       },
     }
   },
