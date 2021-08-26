@@ -478,8 +478,6 @@ router
    * @openapi
    * /api/users/current:
    *   get:
-   *     security:
-   *       - bearerAuth: []
    *     tags: [Users]
    *     summary: Current users
    *     description: Retrieving data of the current user
@@ -559,7 +557,6 @@ router
    *                   example: Internal Server Error
    */
   .get('/current', guard, usersControllers.current);
-  
   
   /**
    * @openapi
