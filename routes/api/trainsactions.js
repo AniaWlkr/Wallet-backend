@@ -392,7 +392,7 @@ router
    *       - tokenAuth: []
    *     parameters:
    *       - in: path
-   *         name: TransactionId
+   *         name: transactionId
    *         required: true
    *         description: Transaction id
    *         schema:
