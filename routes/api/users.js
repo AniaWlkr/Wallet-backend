@@ -15,139 +15,190 @@ const guard = require('../../src/middleware/guard');
  *   name: Users
  *   description: End-points for users.
  */
-router
   /**
    * @openapi
-   * /api/users/signup:
-   *   post:
-   *     tags: [Users]
-   *     description: End-point for registration of users
-   *     summary: Register users
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               name:
-   *                 type: string
-   *                 example : testname
-   *               email:
-   *                 type: string
-   *                 example : testemail@gmail.com
-   *               password:
-   *                 type: string
-   *                 example : 12345678
-   *     responses:
-   *       201:
-   *         description: Created
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : success
-   *                 code:
-   *                   type: number
-   *                   example: 201
-   *                 data:
-   *                   type: object
-   *                   properties:
-   *                     user:
-   *                       type: object
-   *                       properties:
-   *                         name:
-   *                          type: string
-   *                          description: The user's name.
-   *                          example: test
-   *                         email:
-   *                           type: string
-   *                           description: The user's email.
-   *                           example: test@gmail.com
-   *                     message:
-   *                       type: string
-   *                       description: Service message
-   *                       example: Registration successful, please verify your email
-   *
-   *       400:
-   *         description: Bad request
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : error
-   *                 code:
-   *                   type: number
-   *                   example: 400
-   *                 message:
-   *                   type: string
-   *                   description: Service message
-   *                   example: \email\ is required
-   *
-   *       409:
-   *         description: Conflict
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : error
-   *                 code:
-   *                   type: number
-   *                   example: 409
-   *                 message:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Email in use
-   *
-   *       429:
-   *         description: Too many request
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : error
-   *                 code:
-   *                   type: number
-   *                   example: 429
-   *                 message:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Too many request from this IP, please try again after an hour
-   *
-   *       500:
-   *         description: Internal Server Error
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : fail
-   *                 code:
-   *                   type: number
-   *                   example: 500
-   *                 message:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Internal Server Error
-   *                 data:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Internal Server Error
+   *   components:
+   *     User:
+   *       type: object
+   *       required:
+   *         - name
+   *         - email
+   *         - password
+   *       properties:
+   *         id:
+   *           type: string
+   *           description: The auto-generated id of the user
+   *         name:
+   *           type: string
+   *           description: The name of the user
+   *         email:
+   *           type: string
+   *           description: The email of the user
+   *         password:
+   *           type: string
+   *           description: The password of the user
+   *         verify:
+   *           type: boolean
+   *           description: Is user verify email?
+   *         verifyToken:
+   *           type: string
+   *           description: The verify token of the user
+   *         accessToken:
+   *           type: string
+   *           description: The access token of the user
+   *         refreshToken:
+   *           type: string
+   *           description: The refresh token of the user
+   *         createdAt:
+   *           type: string
+   *           format: date
+   *           description: The date of the user creation
+   *         updatedAt:
+   *           type: string
+   *           format: date
+   *           description: The date of the user updated
+   *       example:
+   *         name: test
+   *         email: test@example.com
+   *         password: 12345678
+   *         verify: false
+   *         verifyToken: null
+   *         accessToken: null
+   *         refreshToken: null
+   *         createdAt: 2021-08-18T19:30:05.799+00:00
+   *         updatedAt: 2021-08-18T19:30:05.799+00:00
    */
+
+router
+/**
+ * @openapi
+ * /api/users/signup:
+ *   post:
+ *     tags: [Users]
+ *     description: End-point for registration of users
+ *     summary: Register users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example : testname
+ *               email:
+ *                 type: string
+ *                 example : testemail@gmail.com
+ *               password:
+ *                 type: string
+ *                 example : 12345678
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : success
+ *                 code:
+ *                   type: number
+ *                   example: 201
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       type: object
+ *                       properties:
+ *                         name:
+ *                          type: string
+ *                          description: The user's name.
+ *                          example: test
+ *                         email:
+ *                           type: string
+ *                           description: The user's email.
+ *                           example: test@gmail.com
+ *                     message:
+ *                       type: string
+ *                       description: Service message
+ *                       example: Registration successful, please verify your email
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : error
+ *                 code:
+ *                   type: number
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: \email\ is required
+ *       409:
+ *         description: Conflict
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : error
+ *                 code:
+ *                   type: number
+ *                   example: 409
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Email in use
+ *       429:
+ *         description: Too many request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : error
+ *                 code:
+ *                   type: number
+ *                   example: 429
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Too many request from this IP, please try again after an hour
+ *
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : fail
+ *                 code:
+ *                   type: number
+ *                   example: 500
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ *                 data:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ */
   .post(
     '/signup',
     limiter(createAccountLimit),
@@ -559,58 +610,6 @@ router
 
   .get('/current', guard, usersControllers.current);
   
-  /**
-   * @openapi
-   *   components:
-   *     User:
-   *       type: object
-   *       required:
-   *         - name
-   *         - email
-   *         - password
-   *       properties:
-   *         id:
-   *           type: string
-   *           description: The auto-generated id of the user
-   *         name:
-   *           type: string
-   *           description: The name of the user
-   *         email:
-   *           type: string
-   *           description: The email of the user
-   *         password:
-   *           type: string
-   *           description: The password of the user
-   *         verify:
-   *           type: boolean
-   *           description: Is user verify email?
-   *         verifyToken:
-   *           type: string
-   *           description: The verify token of the user
-   *         accessToken:
-   *           type: string
-   *           description: The access token of the user
-   *         refreshToken:
-   *           type: string
-   *           description: The refresh token of the user
-   *         createdAt:
-   *           type: string
-   *           format: date
-   *           description: The date of the user creation
-   *         updatedAt:
-   *           type: string
-   *           format: date
-   *           description: The date of the user updated
-   *       example:
-   *         name: test
-   *         email: test@example.com
-   *         password: 12345678
-   *         verify: false
-   *         verifyToken: null
-   *         accessToken: null
-   *         refreshToken: null
-   *         createdAt: 2021-08-18T19:30:05.799+00:00
-   *         updatedAt: 2021-08-18T19:30:05.799+00:00
-   */
+
 
   module.exports = router;
