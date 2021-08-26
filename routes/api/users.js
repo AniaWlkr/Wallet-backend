@@ -478,6 +478,11 @@ router
    * @openapi
    *   components:
    *     schemas:
+   *       securitySchemes:
+   *         bearerAuth:
+   *           type: http
+   *           scheme: bearer
+   *           bearerFormat: JWT
    *       User:
    *         type: object
    *         required:
@@ -527,6 +532,8 @@ router
    *           refreshToken: null
    *           createdAt: 2021-08-18T19:30:05.799+00:00
    *           updatedAt: 2021-08-18T19:30:05.799+00:00
+   *   security:
+   *     - bearerAuth: []
    *
    */
   .get('/current', guard, usersControllers.current);
