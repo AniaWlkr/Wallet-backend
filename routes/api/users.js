@@ -600,7 +600,7 @@ router
    *         updatedAt:
    *           type: string
    *           format: date
-   *         description: The date of the user updated
+   *           description: The date of the user updated
    *       example:
    *         name: test
    *         email: test@example.com
@@ -612,5 +612,5 @@ router
    *         createdAt: 2021-08-18T19:30:05.799+00:00
    *         updatedAt: 2021-08-18T19:30:05.799+00:00
    */
-  
+
   module.exports = router;
