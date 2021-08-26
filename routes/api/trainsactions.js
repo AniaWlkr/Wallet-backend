@@ -17,17 +17,11 @@ router
    * @openapi
    * /api/transactions:
    *   post:
+   *     security:
+   *       - bearerAuth: []
    *     tags: [Transactions]
    *     description: End-point for add new transaction
    *     summary: Add new transaction
-   *     parameters:
-   *       - in: header
-   *         name: Authorization
-   *         type: Bearer Token
-   *         required: true
-   *         description: Access Token
-   *         schema:
-   *           type: string
    *     requestBody:
    *       required: true
    *       content:
@@ -155,16 +149,12 @@ router
  * @openapi
  * /api/transactions?page=1&limit=5&transType=income&month=8&year=2021:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Transactions]
  *     description: Retrieving the list of transactions
  *     summary: Get all transaction. Can be filtered by month and year.
  *     parameters:
- *       - in: header
- *         name: Authorization
- *         required: true
- *         description: Access Token
- *         schema:
- *           type: string
  *       - in: query
  *         name: page
  *         description: Page number
@@ -322,16 +312,12 @@ router
    * @openapi
    * /api/transactions/{transactionId}:
    *   get:
+   *     security:
+   *       - bearerAuth: []
    *     tags: [Transactions]
    *     description: End-point for get  user's transaction by id
    *     summary: Get transaction by id
    *     parameters:
-   *       - in: header
-   *         name: Authorization
-   *         required: true
-   *         description: Access Token
-   *         schema:
-   *           type: string
    *       - in: path
    *         name: TransactionId
    *         required: true
@@ -456,12 +442,6 @@ router.put('/:transactionId', guard, ctrl.updateTransaction);
 /**
  * @openapi
  *   components:
- *     schemas:
- *       securitySchemes:
- *         bearerAuth:
- *           type: http
- *           scheme: bearer
- *           bearerFormat: JWT
  *       Transaction:
  *         type: object
  *         required:
@@ -525,8 +505,6 @@ router.put('/:transactionId', guard, ctrl.updateTransaction);
  *           year: 2021
  *           createdAt: 2021-08-24T15:20:53.957+00:00
  *           updatedAt: 2021-08-24T15:20:53.957+00:00
- *   security:
- *     - bearerAuth: []
  */
 
 module.exports = router;
