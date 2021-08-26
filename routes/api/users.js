@@ -479,11 +479,11 @@ router
    * /api/users/current:
    *   get:
    *     security:
-   *       - bearerAuth: []
+   *     - bearerAuth: []
    *     tags: [Users]
    *     summary: Current users
    *     description: Retrieving data of the current user
-   *
+   *     parameters: []
    *     responses:
    *       200:
    *         description: Сurrent user data
