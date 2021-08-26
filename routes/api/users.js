@@ -473,7 +473,94 @@ router
    *                   example: Internal Server Error
    */
   .post('/updateTokens', guard, usersControllers.updateTokens)
-
+  
+  /**
+   * @openapi
+   * /api/users/current:
+   *   get:
+   *     security:
+   *       - bearerAuth: []
+   *     tags: [Users]
+   *     summary: Current users
+   *     description: Retrieving data of the current user
+   *
+   *     responses:
+   *       200:
+   *         description: Сurrent user data
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: string
+   *                   example : success
+   *                 code:
+   *                   type: number
+   *                   example: 200
+   *                 data:
+   *                   type: object
+   *                   properties:
+   *                       id:
+   *                         type: integer
+   *                         description: The user ID.
+   *                         example: 0
+   *                       name:
+   *                         type: string
+   *                         description: The user's name
+   *                         example: Name Surname
+   *                       email:
+   *                         type: string
+   *                         description: The user's email
+   *                         example: test@example.com
+   *                       createdAt:
+   *                         type: string
+   *                         format: date
+   *                         description: The user's date creation
+   *                         example: 2021-08-22T11:57:44.980+00:00
+   *
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: string
+   *                   example : error
+   *                 code:
+   *                   type: number
+   *                   example: 401
+   *                 message:
+   *                   type: string
+   *                   description: Service message
+   *                   example: Not authorized
+   *       500:
+   *         description: Internal Server Error
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: string
+   *                   example : fail
+   *                 code:
+   *                   type: number
+   *                   example: 500
+   *                 message:
+   *                   type: string
+   *                   description: Service message
+   *                   example: Internal Server Error
+   *                 data:
+   *                   type: string
+   *                   description: Service message
+   *                   example: Internal Server Error
+   */
+  .get('/current', guard, usersControllers.current);
+  
+  
   /**
    * @openapi
    *   components:
@@ -527,89 +614,4 @@ router
    *           createdAt: 2021-08-18T19:30:05.799+00:00
    *           updatedAt: 2021-08-18T19:30:05.799+00:00
    */
-  .get('/current', guard, usersControllers.current);
-
-/**
- * @openapi
- * /api/users/current:
- *   get:
- *     tags: [Users]
- *     summary: Current users
- *     description: Retrieving data of the current user
- *
- *     responses:
- *       200:
- *         description: Сurrent user data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example : success
- *                 code:
- *                   type: number
- *                   example: 200
- *                 data:
- *                   type: object
- *                   properties:
- *                       id:
- *                         type: integer
- *                         description: The user ID.
- *                         example: 0
- *                       name:
- *                         type: string
- *                         description: The user's name
- *                         example: Name Surname
- *                       email:
- *                         type: string
- *                         description: The user's email
- *                         example: test@example.com
- *                       createdAt:
- *                         type: string
- *                         format: date
- *                         description: The user's date creation
- *                         example: 2021-08-22T11:57:44.980+00:00
- *
- *       401:
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example : error
- *                 code:
- *                   type: number
- *                   example: 401
- *                 message:
- *                   type: string
- *                   description: Service message
- *                   example: Not authorized
- *       500:
- *         description: Internal Server Error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example : fail
- *                 code:
- *                   type: number
- *                   example: 500
- *                 message:
- *                   type: string
- *                   description: Service message
- *                   example: Internal Server Error
- *                 data:
- *                   type: string
- *                   description: Service message
- *                   example: Internal Server Error
- */
-
-module.exports = router;
+  module.exports = router;

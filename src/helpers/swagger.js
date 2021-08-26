@@ -36,6 +36,16 @@ const options = {
   swaggerOptions: {
     url: 'http://petstore.swagger.io/v2/swagger.json',
   },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        in: "header",
+        bearerFormat: "JWT"
+      },
+    }
+  },
   apis: ['./routes/api/*.js'],
 };
 const swaggerSpec = swaggerJSDoc(options);
