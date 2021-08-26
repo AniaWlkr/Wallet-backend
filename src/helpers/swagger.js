@@ -28,15 +28,14 @@ const definition = {
       description: 'Development API',
     },
   ],
-  securityDefinitions: {
-    bearerAuth: {
-      type: "http",
-      name: "token",
-      scheme: "bearer",
-      bearerFormat: "JWT",
-      in: "header"
-    },
-  }
+  // securityDefinitions: {
+  //   bearerAuth: {
+  //     type: "http",
+  //     name: "token",
+  //     scheme: "bearer",
+  //     bearerFormat: "JWT",
+  // }
+  // }
 };
 
 const options = {

@@ -11,14 +11,20 @@ const guard = require('../../src/middleware/guard');
  * tags:
  *   name: Transactions
  *   description: End-points for transactions.
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ * security:
+ * - bearerAuth: []
  */
 router
   /**
    * @openapi
    * /api/transactions:
    *   post:
-   *     security:
-   *       - bearerAuth: []
    *     tags: [Transactions]
    *     description: End-point for add new transaction
    *     summary: Add new transaction
@@ -149,8 +155,6 @@ router
  * @openapi
  * /api/transactions?page=1&limit=5&transType=income&month=8&year=2021:
  *   get:
- *     security:
- *       - bearerAuth: []
  *     tags: [Transactions]
  *     description: Retrieving the list of transactions
  *     summary: Get all transaction. Can be filtered by month and year.
@@ -312,8 +316,6 @@ router
    * @openapi
    * /api/transactions/{transactionId}:
    *   get:
-   *     security:
-   *       - bearerAuth: []
    *     tags: [Transactions]
    *     description: End-point for get  user's transaction by id
    *     summary: Get transaction by id
