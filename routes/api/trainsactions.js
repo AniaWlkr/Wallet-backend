@@ -14,9 +14,11 @@ const guard = require('../../src/middleware/guard');
  * components:
  *   securitySchemes:
  *     bearerAuth:
+ *       name: Authorization token
  *       type: http
  *       scheme: bearer
  *       bearerFormat: JWT
+ *       in: header
  *   schemas:
  *     Transaction:
  *       type: object
