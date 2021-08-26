@@ -23,6 +23,7 @@ router
    *     parameters:
    *       - in: header
    *         name: Authorization
+   *         type: Bearer Token
    *         required: true
    *         description: Access Token
    *         schema:
@@ -456,6 +457,11 @@ router.put('/:transactionId', guard, ctrl.updateTransaction);
  * @openapi
  *   components:
  *     schemas:
+ *       securitySchemes:
+ *         bearerAuth:
+ *           type: http
+ *           scheme: bearer
+ *           bearerFormat: JWT
  *       Transaction:
  *         type: object
  *         required:
@@ -519,6 +525,8 @@ router.put('/:transactionId', guard, ctrl.updateTransaction);
  *           year: 2021
  *           createdAt: 2021-08-24T15:20:53.957+00:00
  *           updatedAt: 2021-08-24T15:20:53.957+00:00
+ *   security:
+ *     - bearerAuth: []
  */
 
 module.exports = router;
