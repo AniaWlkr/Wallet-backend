@@ -13,7 +13,7 @@ const guard = require('../../src/middleware/guard');
  *   description: End-points for transactions.
  * components:
  *   securitySchemes:
- *     bearerAuth:
+ *     tokenAuth:
  *       name: Authorization token
  *       type: http
  *       scheme: bearer
@@ -94,7 +94,7 @@ router
    *     description: End-point for add new transaction
    *     summary: Add new transaction
    *     security:
-   *       - bearerAuth: []
+   *       - tokenAuth: []
    *     requestBody:
    *       required: true
    *       content:
@@ -225,6 +225,8 @@ router
  *     tags: [Transactions]
  *     description: Retrieving the list of transactions
  *     summary: Get all transaction. Can be filtered by month and year.
+ *     security:
+ *       - tokenAuth: []
  *     parameters:
  *       - in: query
  *         name: page
@@ -386,6 +388,8 @@ router
    *     tags: [Transactions]
    *     description: End-point for get  user's transaction by id
    *     summary: Get transaction by id
+   *     security:
+   *       - tokenAuth: []
    *     parameters:
    *       - in: path
    *         name: TransactionId

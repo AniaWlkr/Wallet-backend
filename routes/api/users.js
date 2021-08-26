@@ -14,57 +14,57 @@ const guard = require('../../src/middleware/guard');
  * tags:
  *   name: Users
  *   description: End-points for users.
- *   components:
- *     schemas:
- *       User:
- *         type: object
- *         required:
- *           - name
- *           - email
- *           - password
- *         properties:
- *           id:
- *             type: string
- *             description: The auto-generated id of the user
- *           name:
- *             type: string
- *             description: The name of the user
- *           email:
- *             type: string
- *             description: The email of the user
- *           password:
- *             type: string
- *             description: The password of the user
- *           verify:
- *             type: boolean
- *             description: Is user verify email?
- *           verifyToken:
- *             type: string
- *             description: The verify token of the user
- *           accessToken:
- *             type: string
- *             description: The access token of the user
- *           refreshToken:
- *             type: string
- *             description: The refresh token of the user
- *           createdAt:
- *             type: string
- *             format: date
- *             description: The date of the user creation
- *           updatedAt:
- *             type: string
- *             format: date
- *             description: The date of the user updated
- *         example:
- *           name: test
- *           email: test@example.com
- *           password: 12345678
- *           verify: false
- *           verifyToken: null
- *           accessToken: null
- *           refreshToken: null
- *           createdAt: 2021-08-18T19:30:05.799+00:00
- *           updatedAt: 2021-08-18T19:30:05.799+00:00
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - email
+ *         - password
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the user
+ *         name:
+ *           type: string
+ *           description: The name of the user
+ *         email:
+ *           type: string
+ *           description: The email of the user
+ *         password:
+ *           type: string
+ *           description: The password of the user
+ *         verify:
+ *           type: boolean
+ *           description: Is user verify email?
+ *         verifyToken:
+ *           type: string
+ *           description: The verify token of the user
+ *         accessToken:
+ *           type: string
+ *           description: The access token of the user
+ *         refreshToken:
+ *           type: string
+ *           description: The refresh token of the user
+ *         createdAt:
+ *           type: string
+ *           format: date
+ *           description: The date of the user creation
+ *         updatedAt:
+ *           type: string
+ *           format: date
+ *           description: The date of the user updated
+ *       example:
+ *         name: test
+ *         email: test@example.com
+ *         password: 12345678
+ *         verify: false
+ *         verifyToken: null
+ *         accessToken: null
+ *         refreshToken: null
+ *         createdAt: 2021-08-18T19:30:05.799+00:00
+ *         updatedAt: 2021-08-18T19:30:05.799+00:00
  */
 
 router
@@ -379,13 +379,8 @@ router
    *     tags: [Users]
    *     description: End-point for logout users
    *     summary: Logout users
-   *     parameters:
-   *       - in: header
-   *         name: Authorization
-   *         required: true
-   *         description: Access Token
-   *         schema:
-   *           type: string
+   *     security:
+   *       - tokenAuth: []
    *     responses:
    *       204:
    *         description: No content.
@@ -436,13 +431,8 @@ router
    *     tags: [Users]
    *     description: End-point for update tokens
    *     summary: Update tokens
-   *     parameters:
-   *       - in: header
-   *         name: Authorization
-   *         required: true
-   *         description: Access Token
-   *         schema:
-   *           type: string
+   *     security:
+   *       - tokenAuth: []
    *     requestBody:
    *       required: true
    *       content:
@@ -530,7 +520,8 @@ router
    *     tags: [Users]
    *     summary: Current users
    *     description: Retrieving data of the current user
-   *     parameters: []
+   *     security:
+   *       - tokenAuth: []
    *     responses:
    *       200:
    *         description: Сurrent user data
