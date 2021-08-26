@@ -17,69 +17,70 @@ const guard = require('../../src/middleware/guard');
  *       type: http
  *       scheme: bearer
  *       bearerFormat: JWT
- *   Transaction:
- *     type: object
- *     required:
- *       - transType
- *       - date
- *       - month
- *       - year
- *       - sum
- *       - balance
- *       - categoryId
- *       - owner
- *     properties:
- *       id:
- *         type: string
- *         description: The auto-generated id of the transaction
- *       transType:
- *         type: string
- *         description: The type of the transaction 'income' or 'spend'
- *       date:
- *         type: String
- *         format: date
- *         description: The date of create transaction
- *       month:
- *         type: Number
- *         description: The month of create transaction
- *       year:
- *         type: Number
- *         description: The year of create transaction
- *       sum:
- *         type: Number
- *         description: Value of income or spend
- *       balance:
- *         type: Number
- *         description: Sum of income and spend values
- *       comment:
- *         type: string
- *         description: The comment to transaction
- *       categoryId:
- *         type: string
- *         description: The category id of transaction
- *       owner:
- *         type: string
- *         description: The owner id of this transaction
- *       createdAt:
- *         type: string
- *         format: date
- *         description: The date of the transaction creation
- *       updatedAt:
- *         type: string
- *         format: date
- *         description: The date of the transaction updated
- *     example:
- *       transType: spend
- *       date: 2021-08-23T00:00:00.000+00:00
- *       sum: 2000
- *       comment: some comment
- *       balance: 9000
- *       categoryId: 6122284cfd194a14a7cfe3c9
- *       owner: 6122e24471139f52f29f61f9
- *       month: 8
- *       year: 2021
- *       createdAt: 2021-08-24T15:20:53.957+00:00
- *       updatedAt: 2021-08-24T15:20:53.957+00:00
+ *   schemas:
+ *     Transaction:
+ *       type: object
+ *       required:
+ *         - transType
+ *         - date
+ *         - month
+ *         - year
+ *         - sum
+ *         - balance
+ *         - categoryId
+ *         - owner
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the transaction
+ *         transType:
+ *           type: string
+ *           description: The type of the transaction 'income' or 'spend'
+ *         date:
+ *           type: String
+ *           format: date
+ *           description: The date of create transaction
+ *         month:
+ *           type: Number
+ *           description: The month of create transaction
+ *         year:
+ *           type: Number
+ *           description: The year of create transaction
+ *         sum:
+ *           type: Number
+ *           description: Value of income or spend
+ *         balance:
+ *           type: Number
+ *           description: Sum of income and spend values
+ *         comment:
+ *           type: string
+ *           description: The comment to transaction
+ *         categoryId:
+ *           type: string
+ *           description: The category id of transaction
+ *         owner:
+ *           type: string
+ *           description: The owner id of this transaction
+ *         createdAt:
+ *           type: string
+ *           format: date
+ *           description: The date of the transaction creation
+ *         updatedAt:
+ *           type: string
+ *           format: date
+ *           description: The date of the transaction updated
+ *       example:
+ *         transType: spend
+ *         date: 2021-08-23T00:00:00.000+00:00
+ *         sum: 2000
+ *         comment: some comment
+ *         balance: 9000
+ *         categoryId: 6122284cfd194a14a7cfe3c9
+ *         owner: 6122e24471139f52f29f61f9
+ *         month: 8
+ *         year: 2021
+ *         createdAt: 2021-08-24T15:20:53.957+00:00
+ *         updatedAt: 2021-08-24T15:20:53.957+00:00
  */
 
 router
