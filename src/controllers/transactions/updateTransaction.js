@@ -1,4 +1,5 @@
 const { TransactionService: service } = require('../../services');
+const { UsersService } = require('../../services');
 const HttpCode = require('../../helpers/constants');
 
 const updateTransaction = async (req, res, next) => {
@@ -12,6 +13,32 @@ const updateTransaction = async (req, res, next) => {
       transactionId,
       newData,
     );
+    // ---------------------------------------------------------------------------------
+    const { docs, totalDocs } = await service.getAllTransactions(ownerId);
+    const arr = [...docs];
+    arr.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+
+    const transIndex = arr.findIndex(
+      el => String(el._id) === String(transactionId),
+    );
+
+    let initBalance = arr[transIndex].balance;
+
+    for (let i = transIndex + 1; i < totalDocs; i++) {
+      initBalance =
+        arr[i].transType === 'income'
+          ? initBalance + arr[i].sum
+          : initBalance - arr[i].sum;
+      await service.updateTransaction(ownerId, arr[i]._id, {
+        balance: initBalance,
+      });
+    }
+    const { data } = await service.getTransById(
+      ownerId,
+      arr[totalDocs - 1]._id,
+    );
+    await UsersService.updateBalance(ownerId, { balance: data.balance });
+    // ----------------------------------------------------------------------------
 
     if (!result) {
       return res.status(HttpCode.NOT_FOUND).json({

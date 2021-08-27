@@ -18,6 +18,7 @@ const current = async (req, res, next) => {
         id: result.id,
         name: result.name,
         email: result.email,
+        balance: result.balance,
         createdAt: result.createdAt,
       },
     });

@@ -22,6 +22,11 @@ class UserService {
     return data;
   }
 
+  async updateBalance(id, balance) {
+    const data = await this.repositories.users.updateBalance(id, balance);
+    return data;
+  }
+
   async verify({ verificationToken }) {
     const user = await this.repositories.users.updateVerifyToken(
       verificationToken,

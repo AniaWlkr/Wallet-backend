@@ -1,14 +1,18 @@
 const { Transaction } = require('../model');
 
-const addTrans = (ownerId, body) => {
-  return Transaction.create(ownerId, body);
+// const addTrans = (ownerId, body) => {
+const addTrans = async body => {
+  // return Transaction.create(ownerId,body);
+  return Transaction.create(body);
+  // return transaction;
 };
+const getAllTransactions = ownerId => Transaction.paginate({ owner: ownerId });
 
 const getAllTrans = (
   ownerId,
   {
     page = 1,
-    limit = 5,
+    limit = 500,
     sortBy = 'date',
     transType = null,
     month = null,
@@ -80,4 +84,5 @@ module.exports = {
   getTransById,
   updateTransaction,
   deleteTransaction,
+  getAllTransactions,
 };
