@@ -32,12 +32,8 @@ class UsersRepository {
     );
   }
 
-  async findByIdAndUpdate(userId, body) {
-    const result = await this.model.findByIdAndUpdate(
-      { _id: userId },
-      { ...body },
-      { new: true },
-    );
+  async updateBalance(id, balance) {
+    const result = await this.model.updateOne({ _id: id }, { ...balance });
     return result;
   }
 }

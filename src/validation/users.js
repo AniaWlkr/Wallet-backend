@@ -4,14 +4,14 @@ const HttpCode = require('../helpers/constants');
 const schemaSignUpUser = Joi.object({
   name: Joi.string().min(3).required(),
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .email({ minDomainSegments: 1, tlds: { allow: ['com', 'net', 'ua'] } })
     .required(),
   password: Joi.string().min(8).required(),
 });
 
 const schemaSignInUser = Joi.object({
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .email({ minDomainSegments: 1, tlds: { allow: ['com', 'net', 'ua'] } })
     .required(),
   password: Joi.string().min(8).required(),
 });
