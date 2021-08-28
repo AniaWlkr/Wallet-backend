@@ -92,7 +92,7 @@ const createTransaction = async (req, res, next) => {
       transactionId,
     );
 
-    res.status(HttpCode.CREATED).json({
+    return res.status(HttpCode.CREATED).json({
       status: 'success',
       code: HttpCode.CREATED,
       data: result,

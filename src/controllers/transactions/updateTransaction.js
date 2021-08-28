@@ -8,11 +8,20 @@ const updateTransaction = async (req, res, next) => {
   const { transactionId } = req.params;
 
   try {
-    const result = await service.updateTransaction(
+    const isPresentTransaction = await service.getTransById(
       ownerId,
       transactionId,
-      newData,
     );
+
+    if (!isPresentTransaction) {
+      return res.status(HttpCode.NOT_FOUND).json({
+        status: 'error',
+        code: HttpCode.NOT_FOUND,
+        message: `No transaction with id ${transactionId} found`,
+      });
+    }
+
+    await service.updateTransaction(ownerId, transactionId, newData);
     // ---------------------------------------------------------------------------------
     const { docs, totalDocs } = await service.getAllTransactions(ownerId);
     const arr = [...docs];
@@ -22,7 +31,28 @@ const updateTransaction = async (req, res, next) => {
       el => String(el._id) === String(transactionId),
     );
 
-    let initBalance = arr[transIndex].balance;
+    let initBalance = null;
+    const startBalance = 0;
+
+    if (transIndex === 0) {
+      initBalance =
+        arr[0].transType === 'income'
+          ? startBalance + arr[0].sum
+          : startBalance - arr[0].sum;
+
+      await service.updateTransaction(ownerId, arr[transIndex]._id, {
+        balance: initBalance,
+      });
+    } else {
+      initBalance =
+        req.body.transType === 'income'
+          ? arr[transIndex - 1].balance + arr[transIndex].sum
+          : arr[transIndex - 1].balance - arr[transIndex].sum;
+
+      await service.updateTransaction(ownerId, arr[transIndex]._id, {
+        balance: initBalance,
+      });
+    }
 
     for (let i = transIndex + 1; i < totalDocs; i++) {
       initBalance =
@@ -33,22 +63,21 @@ const updateTransaction = async (req, res, next) => {
         balance: initBalance,
       });
     }
-    const { data } = await service.getTransById(
-      ownerId,
-      arr[totalDocs - 1]._id,
-    );
-    await UsersService.updateBalance(ownerId, { balance: data.balance });
+    const data = await service.getTransById(ownerId, arr[totalDocs - 1]._id);
     // ----------------------------------------------------------------------------
 
-    if (!result) {
-      return res.status(HttpCode.NOT_FOUND).json({
-        status: 'error',
-        code: HttpCode.NOT_FOUND,
-        message: `No transaction with id ${transactionId} found`,
-      });
-    }
+    // if (!result) {
+    //   return res.status(HttpCode.NOT_FOUND).json({
+    //     status: 'error',
+    //     code: HttpCode.NOT_FOUND,
+    //     message: `No transaction with id ${transactionId} found`,
+    //   });
+    // }
 
-    res.status(HttpCode.OK).json({
+    await UsersService.updateBalance(ownerId, { balance: data.balance });
+    const result = await service.getTransById(ownerId, transactionId);
+
+    return res.status(HttpCode.OK).json({
       status: 'success',
       code: HttpCode.OK,
       data: {
