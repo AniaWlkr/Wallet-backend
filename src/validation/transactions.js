@@ -7,7 +7,7 @@ const schemaCreateTransaction = Joi.object({
   sum: Joi.number().min(0.01).required(),
   // balance: Joi.number().required(),
   // balance: Joi.number(),
-  comment: Joi.string().max(250).optional(),
+  comment: Joi.string().max(250),
   categoryId: Joi.string(),
   owner: Joi.string(),
 });
