@@ -91,6 +91,7 @@ const createTransaction = async (req, res, next) => {
       ownerId,
       transactionId,
     );
+    await UsersService.updateBalance(ownerId, { balance: result.balance });
 
     return res.status(HttpCode.CREATED).json({
       status: 'success',
