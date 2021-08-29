@@ -380,136 +380,335 @@ router
  *                   example: Internal Server Error
  */
 router.get('/', guard, ctrl.getAllTransactions);
-router
-  /**
-   * @openapi
-   * /api/transactions/{transactionId}:
-   *   get:
-   *     tags: [Transactions]
-   *     description: End-point for get  user's transaction by id
-   *     summary: Get transaction by id
-   *     security:
-   *       - tokenAuth: []
-   *     parameters:
-   *       - in: path
-   *         name: transactionId
-   *         required: true
-   *         description: Transaction id
-   *         schema:
-   *           type: string
-   *     responses:
-   *       200:
-   *         description: Success
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : success
-   *                 code:
-   *                   type: number
-   *                   example: 200
-   *                 data:
-   *                   type: object
-   *                   properties:
-   *                     transType:
-   *                      type: string
-   *                      description: Type of transaction 'spend' or 'income'.
-   *                      example: spend
-   *                     _id:
-   *                       type: string
-   *                       description: The transaction's id.
-   *                       example: 61250e55283993330a85df6e
-   *                     date:
-   *                       type: string
-   *                       example : 2021-08-23T00:00:00.000Z
-   *                     sum:
-   *                       type: Number
-   *                       example : 2000
-   *                     comment:
-   *                       type: string
-   *                       example : some coment
-   *                     balance:
-   *                       type: Number
-   *                       example: 9000
-   *                     categoryId:
-   *                       type: object
-   *                       properties:
-   *                          _id:
-   *                            type: string
-   *                            example : 6122284cfd194a14a7cfe3c9
-   *                          categoryName:
-   *                            type: string
-   *                            example : Дети
-   *                     owner:
-   *                       type: object
-   *                       properties:
-   *                          _id:
-   *                            type: string
-   *                            example : 6122e24471139f52f29f61f9
-   *                          name:
-   *                            type: string
-   *                            example : Kate
-   *                          email:
-   *                            type: string
-   *                            example : kate@mail.com
-   *                     month:
-   *                       type: Number
-   *                       example : 8
-   *                     year:
-   *                       type: Number
-   *                       example: 2021
-   *                     createdAt:
-   *                       type: string
-   *                       example : 2021-08-24T15:29:54.369Z
-   *                     updatedAt:
-   *                       type: string
-   *                       example : 2021-08-24T15:29:54.369Z
-   *
-   *       401:
-   *         description: Unauthorized
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : error
-   *                 code:
-   *                   type: number
-   *                   example: 401
-   *                 message:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Not authorized
-   *
-   *       500:
-   *         description: Internal Server Error
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 status:
-   *                   type: string
-   *                   example : fail
-   *                 code:
-   *                   type: number
-   *                   example: 500
-   *                 message:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Internal Server Error
-   *                 data:
-   *                   type: string
-   *                   description: Service message
-   *                   example: Internal Server Error
-   */
-  .get('/:transactionId', guard, ctrl.getTransactionById);
+/**
+ * @openapi
+ * /api/transactions/{transactionId}:
+ *   get:
+ *     tags: [Transactions]
+ *     description: End-point for get  user's transaction by id
+ *     summary: Get transaction by id
+ *     security:
+ *       - tokenAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: transactionId
+ *         required: true
+ *         description: Transaction id
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : success
+ *                 code:
+ *                   type: number
+ *                   example: 200
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     transType:
+ *                      type: string
+ *                      description: Type of transaction 'spend' or 'income'.
+ *                      example: spend
+ *                     _id:
+ *                       type: string
+ *                       description: The transaction's id.
+ *                       example: 61250e55283993330a85df6e
+ *                     date:
+ *                       type: string
+ *                       example : 2021-08-23T00:00:00.000Z
+ *                     sum:
+ *                       type: Number
+ *                       example : 2000
+ *                     comment:
+ *                       type: string
+ *                       example : some coment
+ *                     balance:
+ *                       type: Number
+ *                       example: 9000
+ *                     categoryId:
+ *                       type: object
+ *                       properties:
+ *                          _id:
+ *                            type: string
+ *                            example : 6122284cfd194a14a7cfe3c9
+ *                          categoryName:
+ *                            type: string
+ *                            example : Дети
+ *                     owner:
+ *                       type: object
+ *                       properties:
+ *                          _id:
+ *                            type: string
+ *                            example : 6122e24471139f52f29f61f9
+ *                          name:
+ *                            type: string
+ *                            example : Kate
+ *                          email:
+ *                            type: string
+ *                            example : kate@mail.com
+ *                     month:
+ *                       type: Number
+ *                       example : 8
+ *                     year:
+ *                       type: Number
+ *                       example: 2021
+ *                     createdAt:
+ *                       type: string
+ *                       example : 2021-08-24T15:29:54.369Z
+ *                     updatedAt:
+ *                       type: string
+ *                       example : 2021-08-24T15:29:54.369Z
+ *
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : error
+ *                 code:
+ *                   type: number
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Not authorized
+ *
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : fail
+ *                 code:
+ *                   type: number
+ *                   example: 500
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ *                 data:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ */
+router.get('/:transactionId', guard, ctrl.getTransactionById);
+/**
+ * @openapi
+ * /api/transactions/{transactionId}:
+ *   delete:
+ *     tags: [Transactions]
+ *     description: End-point to delete transaction by id
+ *     summary: Delete transaction by id
+ *     security:
+ *       - tokenAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: transactionId
+ *         required: true
+ *         description: Transaction id
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : success
+ *                 code:
+ *                   type: number
+ *                   example: 200
+ *                 message:
+ *                   type: string
+ *                   description: Transaction deleted
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : error
+ *                 code:
+ *                   type: number
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Not authorized
+ *
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : fail
+ *                 code:
+ *                   type: number
+ *                   example: 500
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ *                 data:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ */
 router.delete('/:transactionId', guard, ctrl.deleteTransaction);
+/**
+ * @openapi
+ * /api/transactions/{transactionId}:
+ *   put:
+ *     tags: [Transactions]
+ *     description: End-point for user's transaction update
+ *     summary: Update transaction by id
+ *     security:
+ *       - tokenAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: transactionId
+ *         required: true
+ *         description: Transaction id
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : success
+ *                 code:
+ *                   type: number
+ *                   example: 200
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     transType:
+ *                      type: string
+ *                      description: Type of transaction 'spend' or 'income'.
+ *                      example: spend
+ *                     _id:
+ *                       type: string
+ *                       description: The transaction's id.
+ *                       example: 61250e55283993330a85df6e
+ *                     date:
+ *                       type: string
+ *                       example : 2021-08-23T00:00:00.000Z
+ *                     sum:
+ *                       type: Number
+ *                       example : 2000
+ *                     comment:
+ *                       type: string
+ *                       example : some coment
+ *                     balance:
+ *                       type: Number
+ *                       example: 9000
+ *                     categoryId:
+ *                       type: object
+ *                       properties:
+ *                          _id:
+ *                            type: string
+ *                            example : 6122284cfd194a14a7cfe3c9
+ *                          categoryName:
+ *                            type: string
+ *                            example : Дети
+ *                     owner:
+ *                       type: object
+ *                       properties:
+ *                          _id:
+ *                            type: string
+ *                            example : 6122e24471139f52f29f61f9
+ *                          name:
+ *                            type: string
+ *                            example : Kate
+ *                          email:
+ *                            type: string
+ *                            example : kate@mail.com
+ *                     month:
+ *                       type: Number
+ *                       example : 8
+ *                     year:
+ *                       type: Number
+ *                       example: 2021
+ *                     createdAt:
+ *                       type: string
+ *                       example : 2021-08-24T15:29:54.369Z
+ *                     updatedAt:
+ *                       type: string
+ *                       example : 2021-08-24T15:29:54.369Z
+ *
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : error
+ *                 code:
+ *                   type: number
+ *                   example: 401
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Not authorized
+ *
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example : fail
+ *                 code:
+ *                   type: number
+ *                   example: 500
+ *                 message:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ *                 data:
+ *                   type: string
+ *                   description: Service message
+ *                   example: Internal Server Error
+ */
 router.put('/:transactionId', guard, ctrl.updateTransaction);
 
 module.exports = router;
