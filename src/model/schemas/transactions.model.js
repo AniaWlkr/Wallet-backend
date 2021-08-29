@@ -33,6 +33,7 @@ const transactionSchema = new Schema(
     comment: {
       type: String,
       maxlength: 250,
+      default : null,
     },
     categoryId: {
       type: Schema.Types.ObjectId,
