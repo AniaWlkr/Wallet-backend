@@ -602,9 +602,6 @@ router.delete('/:transactionId', guard, ctrl.deleteTransaction);
  *           schema:
  *             type: object
  *             properties:
- *               transType:
- *                 type: string
- *                 example : spend
  *               sum:
  *                 type: Number
  *                 example : 2000
