@@ -35,7 +35,7 @@ const guard = (req, res, next) => {
 
     req.user = user;
 
-    // next();
+    next();
   })(req, res, next);
 };
 module.exports = guard;
