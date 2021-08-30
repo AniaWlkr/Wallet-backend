@@ -114,9 +114,6 @@ router
    *               comment:
    *                 type: string
    *                 example : some coment
-   *               balance:
-   *                 type: Number
-   *                 example: 9000
    *               categoryId:
    *                 type: string
    *                 example : 6122284cfd194a14a7cfe3c9
@@ -598,6 +595,25 @@ router.delete('/:transactionId', guard, ctrl.deleteTransaction);
  *         description: Transaction id
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               transType:
+ *                 type: string
+ *                 example : spend
+ *               sum:
+ *                 type: Number
+ *                 example : 2000
+ *               comment:
+ *                 type: string
+ *                 example : some coment
+ *               categoryId:
+ *                 type: string
+ *                 example : 6122284cfd194a14a7cfe3c9
  *     responses:
  *       200:
  *         description: Success
