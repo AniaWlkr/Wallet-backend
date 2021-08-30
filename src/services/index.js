@@ -3,7 +3,6 @@ const AuthService = require('./auth');
 const EmailService = require('./email');
 const CategoriesService = require('./categories');
 const TransactionService = require('./transactions');
-const CurrencyService = require('./currency');
 
 module.exports = {
   UsersService,
@@ -11,5 +10,4 @@ module.exports = {
   EmailService,
   CategoriesService,
   TransactionService,
-  CurrencyService,
 };

@@ -13,7 +13,6 @@ const { swaggerUi, swaggerSpec } = require('./src/helpers/swagger');
 const usersRouter = require('./routes/api/users');
 const categoriesRouter = require('./routes/api/categories');
 const transactionsRouter = require('./routes/api/trainsactions');
-const currencyRouter = require('./routes/api/currency');
 
 const app = express();
 
@@ -28,7 +27,6 @@ app.use('/api/', limiter(apiLimit));
 app.use('/api/users', usersRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/transactions', transactionsRouter);
-app.use('/api/currency', currencyRouter);
 
 app.use(internalServerError);
 
