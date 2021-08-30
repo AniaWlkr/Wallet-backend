@@ -24,6 +24,7 @@ class AuthService {
 
     const result = {
       accessToken: data.accessToken,
+      accessTokenExpireAt: data.accessTokenExpireAt,
       refreshToken: data.refreshToken,
       user: { name: data.name, email: data.email },
       message: 'Authentication successful',

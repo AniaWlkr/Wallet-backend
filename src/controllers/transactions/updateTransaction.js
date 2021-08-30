@@ -37,8 +37,8 @@ const updateTransaction = async (req, res, next) => {
     if (transIndex === 0) {
       initBalance =
         arr[0].transType === 'income'
-          ? startBalance + arr[0].sum
-          : startBalance - arr[0].sum;
+          ? Number(startBalance) + Number(arr[0].sum)
+          : Number(startBalance) - Number(arr[0].sum);
 
       await service.updateTransaction(ownerId, arr[transIndex]._id, {
         balance: initBalance,
@@ -46,8 +46,8 @@ const updateTransaction = async (req, res, next) => {
     } else {
       initBalance =
         req.body.transType === 'income'
-          ? arr[transIndex - 1].balance + arr[transIndex].sum
-          : arr[transIndex - 1].balance - arr[transIndex].sum;
+          ? Number(arr[transIndex - 1].balance) + Number(arr[transIndex].sum)
+          : Number(arr[transIndex - 1].balance) - Number(arr[transIndex].sum);
 
       await service.updateTransaction(ownerId, arr[transIndex]._id, {
         balance: initBalance,
@@ -57,8 +57,8 @@ const updateTransaction = async (req, res, next) => {
     for (let i = transIndex + 1; i < totalDocs; i++) {
       initBalance =
         arr[i].transType === 'income'
-          ? initBalance + arr[i].sum
-          : initBalance - arr[i].sum;
+          ? Number(initBalance) + Number(arr[i].sum)
+          : Number(initBalance) - Number(arr[i].sum);
       await service.updateTransaction(ownerId, arr[i]._id, {
         balance: initBalance,
       });

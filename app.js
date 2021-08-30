@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const limiter = require('./src/middleware/limiter');
 const internalServerError = require('./src/helpers/internalServerError');
@@ -18,6 +19,7 @@ const app = express();
 
 app.use(cors());
 app.use(helmet());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json({ limit: jsonLimit }));
 
 app.use(express.static(path.join(__dirname, 'public')));

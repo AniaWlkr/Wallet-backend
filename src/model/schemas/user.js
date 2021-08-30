@@ -23,8 +23,18 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    accessTokenExpireAt: {
+      type: Date,
+      min: '2020-01-01',
+      default: null,
+    },
     refreshToken: {
       type: String,
+      default: null,
+    },
+    refreshTokenExpireAt: {
+      type: Date,
+      min: '2020-01-01',
       default: null,
     },
     verifyToken: {

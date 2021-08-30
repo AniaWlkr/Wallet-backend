@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const ms = require('ms');
 
 const {
   JWT_SECRET_KEY_ACCESS,
@@ -19,9 +20,18 @@ const createTokens = id => {
       expiresIn: REFRESH_TOKEN_EXPIRE_TIME,
     });
 
+  const accessTokenExpireAt = new Date(
+    ms(ACCESS_TOKEN_EXPIRE_TIME) + Date.now(),
+  );
+  const refreshTokenExpireAt = new Date(
+    ms(REFRESH_TOKEN_EXPIRE_TIME) + Date.now(),
+  );
+
   const newTokens = {
     accessToken: accessToken(payload),
+    accessTokenExpireAt,
     refreshToken: refreshToken(payload),
+    refreshTokenExpireAt,
   };
 
   return newTokens;
