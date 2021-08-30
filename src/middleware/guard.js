@@ -12,9 +12,11 @@ const guard = (req, res, next) => {
     if (headerAuth) {
       token = headerAuth.split(' ')[1];
     }
-
+    const { refreshToken } = req.cookies;
+    console.log(refreshToken);
     if (err || !user || token !== user.accessToken) {
       const { refreshToken } = req.body;
+      // refreshToken.replaceAll(/);
       const isVerifyRefreshToken = verifyRefreshToken(refreshToken);
 
       if (isVerifyRefreshToken & (token === user.refreshToken)) {
@@ -33,7 +35,7 @@ const guard = (req, res, next) => {
 
     req.user = user;
 
-    next();
+    // next();
   })(req, res, next);
 };
 module.exports = guard;

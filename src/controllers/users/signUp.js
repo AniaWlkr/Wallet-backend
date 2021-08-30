@@ -65,7 +65,8 @@ const signUp = async (req, res, next) => {
           name: newUser.name,
           email: newUser.email,
         },
-        message: 'Registration successful, please verify your email',
+        // message: 'Registration successful, please verify your email',
+        message: 'Registration successful',
       },
     });
   } catch (error) {

@@ -11,8 +11,8 @@ const createTransaction = async (req, res, next) => {
 
   const newUserBalance =
     req.body.transType === 'income'
-      ? req.user.balance + req.body.sum
-      : req.user.balance - req.body.sum;
+      ? Number(req.user.balance) + Number(req.body.sum)
+      : Number(req.user.balance) - Number(req.body.sum);
 
   const newTransactions = {
     ...req.body,
@@ -46,13 +46,15 @@ const createTransaction = async (req, res, next) => {
       if (transIndex === 0) {
         const startBalance =
           arr[transIndex + 1].transType === 'income'
-            ? arr[transIndex + 1].balance - arr[transIndex + 1].sum
-            : arr[transIndex + 1].balance + arr[transIndex + 1].sum;
+            ? Number(arr[transIndex + 1].balance) -
+              Number(arr[transIndex + 1].sum)
+            : Number(arr[transIndex + 1].balance) +
+              Number(arr[transIndex + 1].sum);
 
         initBalance =
           req.body.transType === 'income'
-            ? startBalance + req.body.sum
-            : startBalance - req.body.sum;
+            ? Number(startBalance) + Number(req.body.sum)
+            : Number(startBalance) - Number(req.body.sum);
 
         await TransactionService.updateTransaction(
           ownerId,
@@ -64,8 +66,8 @@ const createTransaction = async (req, res, next) => {
       } else {
         initBalance =
           req.body.transType === 'income'
-            ? arr[transIndex - 1].balance + req.body.sum
-            : arr[transIndex - 1].balance - req.body.sum;
+            ? Number(arr[transIndex - 1].balance) + Number(req.body.sum)
+            : Number(arr[transIndex - 1].balance) - Number(req.body.sum);
 
         await TransactionService.updateTransaction(
           ownerId,
@@ -79,8 +81,8 @@ const createTransaction = async (req, res, next) => {
       for (let i = transIndex + 1; i < totalDocs; i++) {
         initBalance =
           arr[i].transType === 'income'
-            ? initBalance + arr[i].sum
-            : initBalance - arr[i].sum;
+            ? Number(initBalance) + Number(arr[i].sum)
+            : Number(initBalance) - Number(arr[i].sum);
         await TransactionService.updateTransaction(ownerId, arr[i]._id, {
           balance: initBalance,
         });

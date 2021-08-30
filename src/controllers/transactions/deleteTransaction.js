@@ -55,13 +55,13 @@ const deleteTransaction = async (req, res, next) => {
     for (let i = transIndex + 1; i < totalDocs; i++) {
       const startBalance =
         arr[i - 1].transType === 'income'
-          ? arr[i - 1].balance - arr[i].sum
-          : arr[i - 1].balance + arr[i].sum;
+          ? Number(arr[i - 1].balance) - Number(arr[i].sum)
+          : Number(arr[i - 1].balance) + Number(arr[i].sum);
 
       const initBalance =
         arr[i].transType === 'income'
-          ? startBalance + arr[i].sum
-          : startBalance - arr[i].sum;
+          ? Number(startBalance) + Number(arr[i].sum)
+          : Number(startBalance) - Number(arr[i].sum);
 
       await service.updateTransaction(ownerId, arr[i]._id, {
         balance: initBalance,
