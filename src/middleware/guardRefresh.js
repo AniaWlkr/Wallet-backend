@@ -5,7 +5,7 @@ require('../config/passportRefresh');
 const HttpCode = require('../helpers/constants');
 
 const guard = (req, res, next) => {
-  passport.authenticate('jwt', { session: false }, (err, user) => {
+  passport.authenticate('jwt2', { session: false }, (err, user) => {
     const headerAuth = req.get('Authorization');
     let token = null;
     if (headerAuth) {
