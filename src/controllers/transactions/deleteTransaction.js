@@ -21,7 +21,7 @@ const deleteTransaction = async (req, res, next) => {
     }
 
     // -------------------------------------------------------------------------
-    const { docs, totalDocs } = await service.getAllTransactions(ownerId);
+    const docs = await service.getAllTransactions(ownerId);
     const arr = [...docs];
 
     if (arr.length === 1) {
@@ -52,7 +52,7 @@ const deleteTransaction = async (req, res, next) => {
       });
     }
 
-    for (let i = transIndex + 1; i < totalDocs; i++) {
+    for (let i = transIndex + 1; i < arr.length; i++) {
       const startBalance =
         arr[i - 1].transType === 'income'
           ? Number(arr[i - 1].balance) - Number(arr[i].sum)
@@ -68,7 +68,7 @@ const deleteTransaction = async (req, res, next) => {
       });
     }
 
-    const data = await service.getTransById(ownerId, arr[totalDocs - 1]._id);
+    const data = await service.getTransById(ownerId, arr[arr.length - 1]._id);
     // console.log(data);
 
     await UsersService.updateBalance(ownerId, { balance: data.balance });

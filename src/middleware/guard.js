@@ -11,7 +11,7 @@ const guard = (req, res, next) => {
     if (headerAuth) {
       token = headerAuth.split(' ')[1];
     }
-    console.log(user);
+    // console.log(user);
     if (err || !user || token !== user.accessToken) {
       return next({
         status: HttpCode.UNAUTHORIZED,

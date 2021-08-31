@@ -23,7 +23,7 @@ const updateTransaction = async (req, res, next) => {
 
     await service.updateTransaction(ownerId, transactionId, newData);
     // ---------------------------------------------------------------------------------
-    const { docs, totalDocs } = await service.getAllTransactions(ownerId);
+    const docs = await service.getAllTransactions(ownerId);
     const arr = [...docs];
     arr.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
 
@@ -54,7 +54,7 @@ const updateTransaction = async (req, res, next) => {
       });
     }
 
-    for (let i = transIndex + 1; i < totalDocs; i++) {
+    for (let i = transIndex + 1; i < arr.length; i++) {
       initBalance =
         arr[i].transType === 'income'
           ? Number(initBalance) + Number(arr[i].sum)
@@ -63,7 +63,7 @@ const updateTransaction = async (req, res, next) => {
         balance: initBalance,
       });
     }
-    const data = await service.getTransById(ownerId, arr[totalDocs - 1]._id);
+    const data = await service.getTransById(ownerId, arr[arr.length - 1]._id);
     // ----------------------------------------------------------------------------
 
     // if (!result) {
