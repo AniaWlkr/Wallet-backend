@@ -10,6 +10,7 @@ const params = {
 };
 
 passport.use(
+  'jwt2',
   new Strategy(params, async (payload, done) => {
     try {
       const user = await serviceUser.findById(payload.id);
