@@ -53,6 +53,7 @@ class AuthService {
 
     const result = {
       accessToken: updatedUser.accessToken,
+      accessTokenExpireAt: updatedUser.accessTokenExpireAt,
       refreshToken: updatedUser.refreshToken,
       message: 'Tokens updated successful',
     };
