@@ -46,11 +46,10 @@ const verifyRefreshToken = refreshToken => {
   }
 };
 
-const getIdUser = (accessToken, refreshToken) => {
-  const resultOne = jwt.decode(accessToken, JWT_SECRET_KEY_ACCESS);
-  const resultTwo = jwt.decode(refreshToken, JWT_SECRET_KEY_REFRESH);
-  if (resultOne.id !== resultTwo.id) return null;
-  return resultTwo.id;
+const getIdUser = ( refreshToken) => {
+  const result = jwt.decode(refreshToken, JWT_SECRET_KEY_REFRESH);
+  if (!result) return null;
+  return result;
 };
 
 module.exports = { createTokens, verifyRefreshToken, getIdUser };

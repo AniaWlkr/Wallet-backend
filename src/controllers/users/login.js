@@ -13,17 +13,11 @@ const login = async (req, res, next) => {
       });
 
     if (result) {
-      return res
-        .cookie('refreshToken', result.refreshToken, {
-          signed: true,
-          httpOnly: true,
-        })
-        .status(HttpCode.OK)
-        .json({
-          status: 'success',
-          code: HttpCode.OK,
-          data: { ...result },
-        });
+      return res.status(HttpCode.OK).json({
+        status: 'success',
+        code: HttpCode.OK,
+        data: { ...result },
+      });
     }
     next({
       status: HttpCode.UNAUTHORIZED,

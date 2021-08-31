@@ -2,10 +2,10 @@ const { AuthService: serviceAuth } = require('../../services');
 const HttpCode = require('../../helpers/constants');
 
 const updateTokens = async (req, res, next) => {
-  const { accessToken, refreshToken } = req.user;
+  const refreshToken = req.user;
 
   try {
-    const result = await serviceAuth.updateTokens(accessToken, refreshToken);
+    const result = await serviceAuth.updateTokens(refreshToken);
 
     if (!result) {
       return next({

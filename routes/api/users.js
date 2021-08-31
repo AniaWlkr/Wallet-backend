@@ -8,6 +8,7 @@ const {
   validateSignInUser,
 } = require('../../src/validation/users');
 const guard = require('../../src/middleware/guard');
+const guardRefresh = require('../../src/middleware/guardRefresh');
 
 /**
  * @openapi
@@ -511,7 +512,7 @@ router
    *                   description: Service message
    *                   example: Internal Server Error
    */
-  .post('/updateTokens', guard, usersControllers.updateTokens)
+  .post('/updateTokens', guardRefresh, usersControllers.updateTokens)
 
   /**
    * @openapi
