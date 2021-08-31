@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-require('../config/passport');
+require('../config/passportRefresh');
 
 const HttpCode = require('../helpers/constants');
 
@@ -11,15 +11,15 @@ const guard = (req, res, next) => {
     if (headerAuth) {
       token = headerAuth.split(' ')[1];
     }
-    console.log(user);
-    if (err || !user || token !== user.accessToken) {
+
+    if (err || !user || token !== user.refreshToken) {
       return next({
         status: HttpCode.UNAUTHORIZED,
         message: 'Not authorized',
       });
     }
 
-    req.user = user;
+    req.user = user.refreshToken;
 
     next();
   })(req, res, next);

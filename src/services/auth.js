@@ -40,8 +40,9 @@ class AuthService {
     return data;
   }
 
-  async updateTokens(accessToken, refreshToken) {
-    const id = await getIdUser(accessToken, refreshToken);
+  async updateTokens(refreshToken) {
+    console.log(refreshToken);
+    const { id } = await getIdUser(refreshToken);
     if (!id) return null;
     const user = await this.repositories.users.findById(id);
     if (!user) return null;
