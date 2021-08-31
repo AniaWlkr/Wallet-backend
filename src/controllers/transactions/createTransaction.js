@@ -29,11 +29,9 @@ const createTransaction = async (req, res, next) => {
 
     const transactionId = data._id;
 
-    const { docs, totalDocs } = await TransactionService.getAllTransactions(
-      ownerId,
-    );
+    const docs = await TransactionService.getAllTransactions(ownerId);
 
-    if (totalDocs > 1) {
+    if (docs.length > 1) {
       const arr = [...docs];
       arr.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
 
@@ -78,7 +76,7 @@ const createTransaction = async (req, res, next) => {
         );
       }
 
-      for (let i = transIndex + 1; i < totalDocs; i++) {
+      for (let i = transIndex + 1; i < arr.length; i++) {
         initBalance =
           arr[i].transType === 'income'
             ? Number(initBalance) + Number(arr[i].sum)
