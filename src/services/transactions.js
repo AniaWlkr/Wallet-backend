@@ -6,7 +6,7 @@ const addTrans = async body => {
   return Transaction.create(body);
   // return transaction;
 };
-const getAllTransactions = ownerId => Transaction.paginate({ owner: ownerId });
+const getAllTransactions = ownerId => Transaction.find({ owner: ownerId });
 
 const getAllTrans = (
   ownerId,
