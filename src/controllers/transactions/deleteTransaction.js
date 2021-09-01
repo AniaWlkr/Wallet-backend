@@ -69,7 +69,6 @@ const deleteTransaction = async (req, res, next) => {
     }
 
     const data = await service.getTransById(ownerId, arr[arr.length - 1]._id);
-    // console.log(data);
 
     await UsersService.updateBalance(ownerId, { balance: data.balance });
     // --------------------------------------------------------------------------
