@@ -25,56 +25,34 @@ const updateTransaction = async (req, res, next) => {
     // ---------------------------------------------------------------------------------
     const docs = await service.getAllTransactions(ownerId);
     const arr = [...docs];
-    arr.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
 
-    const transIndex = arr.findIndex(
-      el => String(el._id) === String(transactionId),
+    const sortArr = arr.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+
+    const transactionBalance = [];
+
+    sortArr.reduce((acc, el) => {
+      acc =
+        el.transType === 'income'
+          ? Number(acc) + Number(el.sum)
+          : Number(acc) - Number(el.sum);
+
+      transactionBalance.push({ id: el._id, balance: acc });
+
+      return acc;
+    }, 0);
+
+    await Promise.all(
+      transactionBalance.map(
+        async el =>
+          await service.updateTransaction(ownerId, el.id, {
+            balance: el.balance,
+          }),
+      ),
     );
 
-    let initBalance = null;
-    const startBalance = 0;
-
-    if (transIndex === 0) {
-      initBalance =
-        arr[0].transType === 'income'
-          ? Number(startBalance) + Number(arr[0].sum)
-          : Number(startBalance) - Number(arr[0].sum);
-
-      await service.updateTransaction(ownerId, arr[transIndex]._id, {
-        balance: initBalance,
-      });
-    } else {
-      initBalance =
-        req.body.transType === 'income'
-          ? Number(arr[transIndex - 1].balance) + Number(arr[transIndex].sum)
-          : Number(arr[transIndex - 1].balance) - Number(arr[transIndex].sum);
-
-      await service.updateTransaction(ownerId, arr[transIndex]._id, {
-        balance: initBalance,
-      });
-    }
-
-    for (let i = transIndex + 1; i < arr.length; i++) {
-      initBalance =
-        arr[i].transType === 'income'
-          ? Number(initBalance) + Number(arr[i].sum)
-          : Number(initBalance) - Number(arr[i].sum);
-      await service.updateTransaction(ownerId, arr[i]._id, {
-        balance: initBalance,
-      });
-    }
-    const data = await service.getTransById(ownerId, arr[arr.length - 1]._id);
-    // ----------------------------------------------------------------------------
-
-    // if (!result) {
-    //   return res.status(HttpCode.NOT_FOUND).json({
-    //     status: 'error',
-    //     code: HttpCode.NOT_FOUND,
-    //     message: `No transaction with id ${transactionId} found`,
-    //   });
-    // }
-
-    await UsersService.updateBalance(ownerId, { balance: data.balance });
+    await UsersService.updateBalance(ownerId, {
+      balance: transactionBalance[transactionBalance.length - 1].balance,
+    });
     const result = await service.getTransById(ownerId, transactionId);
 
     return res.status(HttpCode.OK).json({
