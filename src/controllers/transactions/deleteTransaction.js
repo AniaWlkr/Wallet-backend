@@ -21,10 +21,13 @@ const deleteTransaction = async (req, res, next) => {
     }
 
     // -------------------------------------------------------------------------
+    await service.deleteTransaction(ownerId, transactionId);
+
     const docs = await service.getAllTransactions(ownerId);
+
     const arr = [...docs];
 
-    if (arr.length === 1) {
+    if (arr.length === 0) {
       await UsersService.updateBalance(ownerId, { balance: 0 });
       await service.deleteTransaction(ownerId, transactionId);
       return res.status(HttpCode.OK).json({
@@ -34,53 +37,40 @@ const deleteTransaction = async (req, res, next) => {
       });
     }
 
-    arr.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    const transactionBalance = [];
 
-    const transIndex = arr.findIndex(
-      el => String(el._id) === String(transactionId),
+    arr
+      .sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+      .reduce((acc, el) => {
+        acc =
+          el.transType === 'income'
+            ? Number(acc) + Number(el.sum)
+            : Number(acc) - Number(el.sum);
+
+        transactionBalance.push({ id: el._id, balance: acc });
+
+        return acc;
+      }, 0);
+
+    await Promise.all(
+      transactionBalance.map(
+        async el =>
+          await service.updateTransaction(ownerId, el.id, {
+            balance: el.balance,
+          }),
+      ),
     );
 
-    if (transIndex === arr.length - 1) {
-      await UsersService.updateBalance(ownerId, {
-        balance: arr[transIndex - 1].balance,
-      });
-      await service.deleteTransaction(ownerId, transactionId);
-      return res.status(HttpCode.OK).json({
-        status: 'success',
-        code: HttpCode.OK,
-        message: 'Transaction deleted',
-      });
-    }
+    await UsersService.updateBalance(ownerId, {
+      balance: transactionBalance[transactionBalance.length - 1].balance,
+    });
 
-    for (let i = transIndex + 1; i < arr.length; i++) {
-      const startBalance =
-        arr[i - 1].transType === 'income'
-          ? Number(arr[i - 1].balance) - Number(arr[i].sum)
-          : Number(arr[i - 1].balance) + Number(arr[i].sum);
-
-      const initBalance =
-        arr[i].transType === 'income'
-          ? Number(startBalance) + Number(arr[i].sum)
-          : Number(startBalance) - Number(arr[i].sum);
-
-      await service.updateTransaction(ownerId, arr[i]._id, {
-        balance: initBalance,
-      });
-    }
-
-    const data = await service.getTransById(ownerId, arr[arr.length - 1]._id);
-
-    await UsersService.updateBalance(ownerId, { balance: data.balance });
     // --------------------------------------------------------------------------
-
-    await service.deleteTransaction(ownerId, transactionId);
-    // const result = await service.deleteTransaction(ownerId, transactionId);
 
     return res.status(HttpCode.OK).json({
       status: 'success',
       code: HttpCode.OK,
       message: 'Transaction deleted',
-      // result,
     });
   } catch (error) {
     next(error);
